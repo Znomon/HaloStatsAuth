@@ -84,8 +84,9 @@ int main(int argc, char *argv[])
     //argv[1]
 	string hashedUID = sha256(pubKey);
 	string UID = hashedUID.substr(0, 16);
+	
+	// #### Might need for byte reversing of UID ###
 	//char newUID [20]; //UID that is used to ban/whitelist users
-
 	//sprintf(newUID, "%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s", UID[14], UID[15], UID[12], UID[13], UID[11], UID[10], UID[8], UID[9], UID[6], UID[7], UID[4], UID[5], UID[2], UID[3], UID[0], UID[1]);
 
 	std::cout << UID << endl;

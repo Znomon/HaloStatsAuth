@@ -1,5 +1,5 @@
 <center>
-<form name="contactform" method="post" action="verify.php">
+<form name="contactform" method="post" action="genMail.php">
  
 <table width="450px">
  
