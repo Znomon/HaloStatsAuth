@@ -39,9 +39,10 @@
 
 					// Images (in the format of 'url': 'alignment').
 						images: {
-							'images/bg01.jpg': 'center',
-							'images/bg02.jpg': 'center',
-							'images/bg03.jpg': 'center'
+							'images/Halo6.jpg': 'center',
+							'images/Halo1.jpg': 'center',
+							'images/Halo2.jpg': 'center',
+							'images/Halo3.jpg': 'center'
 						},
 
 					// Delay.
@@ -137,37 +138,38 @@
 					$message.classList.remove('visible');
 				};
 
-			// Events.
-			// Note: If you're *not* using AJAX, get rid of this event listener.
-				$form.addEventListener('submit', function(event) {
+			// // Events.
+			// // Note: If you're *not* using AJAX, get rid of this event listener.
+				// $form.addEventListener('submit', function(event) {
 
-					event.stopPropagation();
-					event.preventDefault();
+					// event.stopPropagation();
+					// event.preventDefault();
 
-					// Hide message.
-						$message._hide();
+					// // Hide message.
+						// $message._hide();
 
-					// Disable submit.
-						$submit.disabled = true;
+					// // Disable submit.
+						// $submit.disabled = true;
 
-					// Process form.
-					// Note: Doesn't actually do anything yet (other than report back with a "thank you"),
-					// but there's enough here to piece together a working AJAX submission call that does.
-						window.setTimeout(function() {
+					// // Process form.
+					// // Note: Doesn't actually do anything yet (other than report back with a "thank you"),
+					// // but there's enough here to piece together a working AJAX submission call that does.
+						// window.setTimeout(function() {
 
-							// Reset form.
-								$form.reset();
+							// // Reset form.
+								// $form.reset();
 
-							// Enable submit.
-								$submit.disabled = false;
+							// // Enable submit.
+								// $submit.disabled = false;
 
-							// Show message.
-								$message._show('success', 'Thank you!');
-								//$message._show('failure', 'Something went wrong. Please try again.');
+							// // Show message.
+								// $message._show('success', 'Thank you!');
+								// //$message._show('failure', 'Something went wrong. Please try again.');
 
-						}, 750);
+						// }, 750);
 
-				});
+				// }
+				//);
 
 		})();
 

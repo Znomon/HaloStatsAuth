@@ -60,6 +60,12 @@ bool genKey(std::string& privKey, std::string& pubKey) {
 	return true;
 }
 
+std::string myreplace(std::string &s,
+	const std::string &toReplace,
+	const std::string &replaceWith)
+{
+	return(s.replace(s.find(toReplace), toReplace.length(), replaceWith));
+}
 
 int main(int argc, char *argv[])
 {
@@ -74,22 +80,30 @@ int main(int argc, char *argv[])
 	std::string privKey;
 	std::string pubKey;
 	
-	//genKey(privKey, pubKey);
+	genKey(privKey, pubKey);
 
-	pubKey = "MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAnxyPA5TlZ61CHQgKgKNVqvJFqLoqVWoLb6V+WS1xQKGMr5d6gkk3fpwSOq0+z4Qf8OaYmZ49+CcWY/lMhNV3w0Np5zWvjwsMEYDdHcvM6J+kmy7INmet2vlfLmwO76Ap62+APsMWREnVXf2YWVqTKN5DyJofxBycdE/Te9GSzP3LFiGRzwIdDnZkcB5foyndJh4NWvgGPsKm8GTSCyvZri6FIsNykV6X8icUs5exBPf0Usq6xsek55D/ej6n6MxdsIiWOTqsUiLl40zv7UbpWzcJSeuXcgg52t3DleFGXJWDrfAevo3iqYkeWdIz2AvaQ1G9y9J9PZCxpNjpOD2B71ATcuAYYOXrWQZBaEuq/ZAV5RGapc40CxZBi+rGu8xVHaXAlynza1yomFfnURo9EGdx3E25DKbOy7QHouG0iluc3io+cwc+tprvNg8eMqgAEaCmPdpf5bNpAKkNk38p9v3CtLbNyshTfOT3AGAOAEAYCBzmyYtdgx+x3ieU+Zj2YCHdfHqMYlxAuXqKYPWEntT7CbDD2kyi/ayWJuW1uwedlqwaGqlThwNBg9BdDk53hqv+g/jjjLqdE4cUzONbiUQe8Wgat0R/70iWp3vsPOoMfFzQoXDAq2OuePoIVYaezJ/2C+LMn/MvpPfykV8yPIujLhh2Fba2jioHmhTqit8CAwEAAQ==";
+	privKey = myreplace(privKey, "\n", "");
+	privKey = myreplace(privKey, "-----BEGIN RSA PRIVATE KEY-----", "");
+	privKey = myreplace(privKey, "-----END RSA PRIVATE KEY-----", "");
+	pubKey = myreplace(pubKey, "\n", "");
+	pubKey = myreplace(pubKey, "\n", "");
+	pubKey = myreplace(pubKey, "-----BEGIN PUBLIC KEY-----", "");
+	pubKey = myreplace(pubKey, "-----END PUBLIC KEY-----", "");
+
+	//pubKey = "MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAnxyPA5TlZ61CHQgKgKNVqvJFqLoqVWoLb6V+WS1xQKGMr5d6gkk3fpwSOq0+z4Qf8OaYmZ49+CcWY/lMhNV3w0Np5zWvjwsMEYDdHcvM6J+kmy7INmet2vlfLmwO76Ap62+APsMWREnVXf2YWVqTKN5DyJofxBycdE/Te9GSzP3LFiGRzwIdDnZkcB5foyndJh4NWvgGPsKm8GTSCyvZri6FIsNykV6X8icUs5exBPf0Usq6xsek55D/ej6n6MxdsIiWOTqsUiLl40zv7UbpWzcJSeuXcgg52t3DleFGXJWDrfAevo3iqYkeWdIz2AvaQ1G9y9J9PZCxpNjpOD2B71ATcuAYYOXrWQZBaEuq/ZAV5RGapc40CxZBi+rGu8xVHaXAlynza1yomFfnURo9EGdx3E25DKbOy7QHouG0iluc3io+cwc+tprvNg8eMqgAEaCmPdpf5bNpAKkNk38p9v3CtLbNyshTfOT3AGAOAEAYCBzmyYtdgx+x3ieU+Zj2YCHdfHqMYlxAuXqKYPWEntT7CbDD2kyi/ayWJuW1uwedlqwaGqlThwNBg9BdDk53hqv+g/jjjLqdE4cUzONbiUQe8Wgat0R/70iWp3vsPOoMfFzQoXDAq2OuePoIVYaezJ/2C+LMn/MvpPfykV8yPIujLhh2Fba2jioHmhTqit8CAwEAAQ==";
 
 
 
-	//std::cout << "Public Key: " << pubKey << endl << "Private Key: " << privKey << endl;
+	std::cout << pubKey << "##" << privKey << endl;
     //argv[1]
-	string hashedUID = sha256(pubKey);
-	string UID = hashedUID.substr(0, 16);
+	//string hashedUID = sha256(pubKey);
+	//string UID = hashedUID.substr(0, 16);
 	
 	// #### Might need for byte reversing of UID ###
 	//char newUID [20]; //UID that is used to ban/whitelist users
 	//sprintf(newUID, "%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s", UID[14], UID[15], UID[12], UID[13], UID[11], UID[10], UID[8], UID[9], UID[6], UID[7], UID[4], UID[5], UID[2], UID[3], UID[0], UID[1]);
 
-	std::cout << UID << endl;
+	//std::cout << UID << endl;
 	
 
 	getchar();

@@ -25,21 +25,55 @@ if (mysqli_connect_errno())
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
 
-$email = mysqli_real_escape_string($sql, $_POST['email']);
-$pubKey = mysqli_real_escape_string($sql, $_POST['pubKey']);
+  
+
+$email = isset($_POST['email']) ? $_POST['email'] : '';
+$pubKey = isset($_POST['pubKey']) ? $_POST['pubKey'] : ''; 
+#if($_GET['email']){$email = mysqli_real_escape_string($sql, $_POST['email']);}
+
+#if($_GET['pubKey']){$pubKey = mysqli_real_escape_string($sql, $_POST['pubKey']);}
+
+
+
+
 
 $action = array();
 $action['result'] = null;
  
 $text = array();
 
-if(empty($email)){ 
-	$action['result'] = 'error';
-	array_push($text,'You forgot your email'); 	
-}
-if(empty($pubKey)){ 
-	$action['result'] = 'error';
-	array_push($text,'pubKey empty');
+if(!empty($email)){ 
+	 
+	//Email Entered
+	//echo "Email";
+	$req = mysqli_query($sql, "SELECT * FROM `users` WHERE email = 'kasey.xbox@gmail.com'");
+	//$row = mysqli_fetch_array($req, MYSQLI_NUM);
+	if(mysqli_num_rows($req)>0){
+		//$action['result'] = 'error';
+		//array_push($text,'Email already in use');
+		echo 'Email already in use <br/>';
+	}
+	else{
+		$resp = shell_exec("GenKeys.exe");
+		list($pubKey,$privKey) = explode("##", $resp);
+		$uid = shell_exec("GenUID.exe $pubKey");
+		$ip = $_SERVER['REMOTE_ADDR'];
+		//check if UID is unique
+			//else generate new public/private rinse repeat
+		//send email
+		mysqli_query($sql, "INSERT INTO `users` VALUES(NULL,'$email','$pubKey','$uid','$ip','$privKey')") or die ("query failed");
+	}
+}else if(!empty($pubKey)){ 
+	//PubKey Entered
+	echo "PubKey";
+	#$_SERVER['REMOTE_ADDR'];
+	//generate UID
+	//check if UID unique
+	//if(yes)
+		//add UID to database
+		#mysqli_query($sql, "INSERT INTO `users` VALUES(NULL,NULL,'$pubKey','$uid','$ip')") or die ("query failed");
+	//else
+		//inform user, and redirect to signup page
 }
 
 
@@ -53,14 +87,9 @@ $action['text'] = $text;
 
 $uid = 54321; //= shell_exec("GenUID.exe $pubkey");
 
-
+$ip = $_SERVER['REMOTE_ADDR'];
 //add to the database
-$add = mysqli_query($sql, "INSERT INTO `users` VALUES(NULL,'$email','$pubKey','$uid')") or die ("query failed");
-
-if (mysqli_connect_errno())
-  {
-  echo "Failed to query to MySQL: " . mysqli_connect_error();
-  }
+$add = mysqli_query($sql, "INSERT INTO `users` VALUES(NULL,'$email','$pubKey','$uid','$ip')") or die ("query failed");
          
 if($add){
  
